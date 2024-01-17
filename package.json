@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/refactorinqq/Axrinth.git"
+    "url": "git+https://github.com/refactorinqq/ModrinthJS.git"
   },
   "keywords": [
     "modrinth",
@@ -20,9 +20,9 @@
   "author": "refactoring",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/refactorinqq/Axrinth/issues"
+    "url": "https://github.com/refactorinqq/ModrinthJS/issues"
   },
-  "homepage": "https://github.com/refactorinqq/Axrinth#readme",
+  "homepage": "https://github.com/refactorinqq/ModrinthJS#readme",
   "devDependencies": {
     "ts-node": "^10.9.2",
     "tsdoc-markdown": "^0.1.0",
