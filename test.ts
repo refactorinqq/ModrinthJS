@@ -1,4 +1,4 @@
-import { ProjectResult, ProjectsService } from 'modrinthjs'
+import { ProjectResult, ProjectsService } from './src/index'
 
 async function main() {
     const project: ProjectResult  = await (await ProjectsService.searchProjects("Any")).hits[0] as ProjectResult

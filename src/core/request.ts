@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiError } from './ApiError';
 import type { ApiRequestOptions } from './ApiRequestOptions';
 import type { ApiResult } from './ApiResult';
@@ -136,7 +137,7 @@ export const resolve = async <T>(options: ApiRequestOptions, resolver?: T | Reso
     return resolver;
 };
 
-export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Promise<Headers> => {
+export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptions): Promise<Record<string, string>> => {
     const token = await resolve(options, config.TOKEN);
     const username = await resolve(options, config.USERNAME);
     const password = await resolve(options, config.PASSWORD);
@@ -174,7 +175,7 @@ export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptio
         }
     }
 
-    return new Headers(headers);
+    return headers;
 };
 
 export const getRequestBody = (options: ApiRequestOptions): any => {
@@ -196,30 +197,36 @@ export const sendRequest = async (
     url: string,
     body: any,
     formData: FormData | undefined,
-    headers: Headers,
+    headers: Record<string, string>,
     onCancel: OnCancel
-): Promise<Response> => {
-    const controller = new AbortController();
+): Promise<AxiosResponse> => {
+    const source = axios.CancelToken.source();
 
-    const request: RequestInit = {
-        headers,
-        body: body ?? formData,
+    const requestConfig: AxiosRequestConfig = {
+        url,
         method: options.method,
-        signal: controller.signal,
+        headers,
+        data: body ?? formData,
+        cancelToken: source.token,
     };
 
     if (config.WITH_CREDENTIALS) {
-        request.credentials = config.CREDENTIALS;
+        requestConfig.withCredentials = true;
     }
 
-    onCancel(() => controller.abort());
+    onCancel(() => source.cancel());
 
-    return await fetch(url, request);
+    try {
+        const response = await axios(requestConfig);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 };
 
-export const getResponseHeader = (response: Response, responseHeader?: string): string | undefined => {
+export const getResponseHeader = (response: AxiosResponse, responseHeader?: string): string | undefined => {
     if (responseHeader) {
-        const content = response.headers.get(responseHeader);
+        const content = response.headers[responseHeader];
         if (isString(content)) {
             return content;
         }
@@ -227,17 +234,17 @@ export const getResponseHeader = (response: Response, responseHeader?: string): 
     return undefined;
 };
 
-export const getResponseBody = async (response: Response): Promise<any> => {
+export const getResponseBody = async (response: AxiosResponse): Promise<any> => {
     if (response.status !== 204) {
         try {
-            const contentType = response.headers.get('Content-Type');
+            const contentType = response.headers['content-type'];
             if (contentType) {
                 const jsonTypes = ['application/json', 'application/problem+json']
                 const isJSON = jsonTypes.some(type => contentType.toLowerCase().startsWith(type));
                 if (isJSON) {
-                    return await response.json();
+                    return response.data;
                 } else {
-                    return await response.text();
+                    return response.data;
                 }
             }
         } catch (error) {
@@ -303,7 +310,7 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): C
 
                 const result: ApiResult = {
                     url,
-                    ok: response.ok,
+                    ok: response.status >= 200 && response.status < 300,
                     status: response.status,
                     statusText: response.statusText,
                     body: responseHeader ?? responseBody,
