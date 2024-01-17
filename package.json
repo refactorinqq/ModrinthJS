@@ -1,0 +1,32 @@
+{
+  "name": "modrinthjs",
+  "version": "1.0.0",
+  "description": "A type safe Modrinth implementation.",
+  "main": "./src/axrinth.ts",
+  "scripts": {
+    "test": "node test.js",
+    "build": "npx tsc",
+    "start": "npm run build && node dist/test.js",
+    "doc": "typedoc src/index.ts --out docs --json docs/description.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refactorinqq/Axrinth.git"
+  },
+  "keywords": [
+    "modrinth",
+    "api"
+  ],
+  "author": "refactoring",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/refactorinqq/Axrinth/issues"
+  },
+  "homepage": "https://github.com/refactorinqq/Axrinth#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tsdoc-markdown": "^0.1.0",
+    "typedoc": "^0.25.7",
+    "typescript": "^5.3.3"
+  }
+}
