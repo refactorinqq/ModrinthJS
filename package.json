@@ -1,8 +1,8 @@
 {
   "name": "modrinthjs",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "A type safe Modrinth implementation.",
-  "main": "./src/axrinth.ts",
+  "main": "./dist/src/index.js",
   "scripts": {
     "test": "node test.js",
     "build": "npx tsc",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/refactorinqq/ModrinthJS#readme",
   "devDependencies": {
+    "modrinthjs": "^1.0.3",
     "ts-node": "^10.9.2",
     "tsdoc-markdown": "^0.1.0",
     "typedoc": "^0.25.7",

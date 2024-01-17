@@ -15,12 +15,15 @@
 > A type safe Modrinth implementation.
 
 ### 🏠 [Homepage](https://github.com/refactorinqq/ModrinthJS#readme)
+### 📘 [Documentation](https://modrinthjs.surge.sh)
 
 ## Install
 
 ```sh
 npm install
 ```
+
+## Basic Usage
 
 ## Author
 
@@ -31,6 +34,41 @@ npm install
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/refactorinqq/ModrinthJS/issues). 
+
+## Example
+
+```js
+import { ProjectsService } from 'modrinthjs'
+
+async function main() {
+    const project = await (await ProjectsService.searchProjects("Fabric API")).hits[0]
+
+    console.log("Title: " + project.title)
+    console.log("Description: " + project.description)
+    console.log("Categories: " + project.categories?.map((cat) => cat.toUpperCase()))
+    console.log("Downloads: " + format(project.downloads))
+    console.log("Followers: " + format(project.follows))
+}
+
+function format(num) {
+    return Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 1
+    }).format(num);
+}
+
+main()
+```
+
+```
+[~] $ node example.js
+Title: Fabric API
+Description: Lightweight and modular API providing common hooks and intercompatibility measures utilized by mods using the Fabric toolchain.
+Categories: FABRIC,LIBRARY
+Downloads: 5.8M
+Followers: 7.8K
+[~] $
+```
 
 ## Show your support
 

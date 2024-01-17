@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = require("./src/index");
+const modrinthjs_1 = require("modrinthjs");
 function main() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        const project = yield index_1.ProjectsService.getProject("P7dR8mSH");
+        const project = yield (yield modrinthjs_1.ProjectsService.searchProjects("Any")).hits[0];
         console.log("Title: " + project.title);
         console.log("Description: " + project.description);
         console.log("Categories: " + ((_a = project.categories) === null || _a === void 0 ? void 0 : _a.map((mod) => mod.toUpperCase())));
         console.log("Downloads: " + format(project.downloads));
-        console.log("Followers: " + format(project.followers));
+        console.log("Followers: " + format(project.follows));
     });
 }
 function format(num) {
