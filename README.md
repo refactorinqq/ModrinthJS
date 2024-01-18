@@ -1,3 +1,5 @@
+***ATTENTION: This is obviously not an official package; I am not affiliated with neither Rinth, Inc. nor the Modrinth Team.***
+
 <h1 align="center">Welcome to ModrinthJS 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
@@ -20,22 +22,12 @@
 ## Install
 
 ```sh
-npm install
+npm install modrinthjs
+# or
+yarn add modrinthjs
 ```
 
 ## Basic Usage
-
-## Author
-
-👤 **refactoring**
-
-* Github: [@refactorinqq](https://github.com/refactorinqq)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/refactorinqq/ModrinthJS/issues). 
-
-## Example
 
 ```js
 import { ProjectsService } from 'modrinthjs'
@@ -69,6 +61,16 @@ Downloads: 5.8M
 Followers: 7.8K
 [~] $
 ```
+
+## Author
+
+👤 **refactoring**
+
+* Github: [@refactorinqq](https://github.com/refactorinqq)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/refactorinqq/ModrinthJS/issues). 
 
 ## Show your support
 
