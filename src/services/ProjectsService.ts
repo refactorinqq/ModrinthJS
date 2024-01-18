@@ -72,28 +72,27 @@ export class ProjectsService {
      * @throws ApiError
      */
     public static searchProjects(
-query?: string,
-facets?: string,
-index: 'relevance' | 'downloads' | 'follows' | 'newest' | 'updated' = 'relevance',
-offset?: number,
-limit: number = 10,
-): CancelablePromise<SearchResults> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/search',
-            query: {
-                'query': query,
-                'facets': facets,
-                'index': index,
-                'offset': offset,
-                'limit': limit,
-            },
-            errors: {
-                400: `Request was invalid, see given error`,
-            },
-        });
-    }
-
+    query?: string,
+    facets?: string,
+    index: 'relevance' | 'downloads' | 'follows' | 'newest' | 'updated' = 'relevance',
+    offset?: number,
+    limit: number = 10,
+  ): CancelablePromise<SearchResults> {
+    return __request(OpenAPI, {
+      method: 'GET',
+      url: '/search',
+      query: {
+        'query': query,
+        'facets': facets,
+        'index': index,
+        'offset': offset,
+        'limit': limit,
+      },
+      errors: {
+        400: 'Request was invalid; See given error!'
+      },
+    });
+  }
     /**
      * Get a project
      * @param idSlug The ID or slug of the project

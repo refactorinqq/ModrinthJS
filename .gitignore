@@ -1,2 +1,5 @@
 node_modules
 dist
+package
+index.js
+index.d.ts

@@ -1,7 +1,14 @@
 import { ProjectResult, ProjectsService } from './src/index'
 
 async function main() {
-    const project: ProjectResult  = await (await ProjectsService.searchProjects("Any")).hits[0] as ProjectResult
+    const facets = [
+        ['categories:forge'],
+        ['versions:1.17.1'],
+        ['project_type:mod'],
+        ['license:mit'],
+    ];
+
+    const project: ProjectResult  = await (await ProjectsService.searchProjects("Any", JSON.stringify(facets))).hits[0] as ProjectResult
 
     console.log("Title: " + project.title)
     console.log("Description: " + project.description)
